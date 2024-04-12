@@ -36,16 +36,12 @@ class APIIngress:
 )
 class StableDiffusionV2:
     def __init__(self):
-        from diffusers import EulerDiscreteScheduler, StableDiffusionPipeline
 
-        model_id = "stabilityai/stable-diffusion-2"
+        from diffusers import StableDiffusionPipeline
 
-        scheduler = EulerDiscreteScheduler.from_pretrained(
-            model_id, subfolder="scheduler"
-        )
-        self.pipe = StableDiffusionPipeline.from_pretrained(
-            model_id, scheduler=scheduler, revision="fp16", torch_dtype=torch.float16
-        )
+        model_id = "prompthero/openjourney"
+
+        self.pipe = StableDiffusionPipeline.from_pretrained(model_id,  scheduler=scheduler, torch_dtype=torch.float16)
         self.pipe = self.pipe.to("cuda")
 
     def generate(self, prompt: str, img_size: int = 512):
