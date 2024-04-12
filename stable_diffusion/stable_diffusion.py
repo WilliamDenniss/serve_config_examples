@@ -37,12 +37,17 @@ class APIIngress:
 class StableDiffusionV2:
     def __init__(self):
 
-        from diffusers import StableDiffusionPipeline
+        from diffusers import StableDiffusionPipeline, AutoencoderKL
 
-        model_id = "prompthero/openjourney"
+        repo = "IDKiro/sdxs-512-dreamshaper"
+        seed = 42
+        weight_type = torch.float16     # or float32
 
-        self.pipe = StableDiffusionPipeline.from_pretrained(model_id,  scheduler=scheduler, torch_dtype=torch.float16)
-        self.pipe = self.pipe.to("cuda")
+        # Load model.
+        pipe = StableDiffusionPipeline.from_pretrained(repo, torch_dtype=weight_type)
+        pipe.to("cuda")
+
+        self.pipe = pipe
 
     def generate(self, prompt: str, img_size: int = 512):
         assert len(prompt), "prompt parameter cannot be empty"
