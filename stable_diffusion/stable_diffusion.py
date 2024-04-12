@@ -38,7 +38,7 @@ class StableDiffusionV2:
     def __init__(self):
         from diffusers import EulerDiscreteScheduler, StableDiffusionPipeline
 
-        model_id = "stabilityai/stable-diffusion-2"
+        model_id = "dreamlike-art/dreamlike-photoreal-2.0"
 
         scheduler = EulerDiscreteScheduler.from_pretrained(
             model_id, subfolder="scheduler"
